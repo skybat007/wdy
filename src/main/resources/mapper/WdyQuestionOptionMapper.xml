@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.flaginfo.wdy.api.user.dao.WdyQuestionOptionMapper">
+	<resultMap id="BaseResultMap"
+		type="com.flaginfo.wdy.api.user.domain.WdyQuestionOption">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="qs_id" property="qsId" jdbcType="VARCHAR" />
+		<result column="option_key" property="optionKey" jdbcType="VARCHAR" />
+		<result column="option_val" property="optionVal" jdbcType="VARCHAR" />
+		<result column="option_sort" property="optionSort" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="del_flag" property="delFlag" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, qs_id, option_key, option_val, option_sort
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from wdy_question_option
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from wdy_question_option
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		wdy_question_option
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+
+	<insert id="insert" parameterType="com.flaginfo.wdy.api.user.domain.WdyQuestionOption">
+		insert into wdy_question_option (
+		id,
+		qs_id,
+		option_key,
+		option_val,
+		option_sort
+		) values (
+		#{id,jdbcType=VARCHAR},
+		#{qsId,jdbcType=VARCHAR},
+		#{optionKey,jdbcType=VARCHAR},
+		#{optionVal,jdbcType=VARCHAR},
+		#{optionSort,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.flaginfo.wdy.api.user.domain.WdyQuestionOption">
+		insert into wdy_question_option
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="qsId != null">
+				qs_id,
+			</if>
+			<if test="optionKey != null">
+				option_key,
+			</if>
+			<if test="optionVal != null">
+				option_val,
+			</if>
+			<if test="optionSort != null">
+				option_sort
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="qsId != null">
+				#{qsId,jdbcType=VARCHAR},
+			</if>
+			<if test="optionKey != null">
+				#{optionKey,jdbcType=VARCHAR},
+			</if>
+			<if test="optionVal != null">
+				#{optionVal,jdbcType=VARCHAR},
+			</if>
+			<if test="optionSort != null">
+				#{optionSort,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- <select id="countByExample" parameterType="com.flaginfo.wdy.api.user.domain.UserCriteria" 
+		resultType="java.lang.Integer"> select count(*) from country </select> -->
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.flaginfo.wdy.api.user.domain.WdyQuestionOption">
+		update wdy_question_option
+		<set>
+			<if test="optionKey != null">
+				option_key =
+				#{optionKey,jdbcType=VARCHAR},
+			</if>
+			<if test="optionVal != null">
+				option_val =
+				#{optionVal,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.flaginfo.wdy.api.user.domain.WdyQuestionOption">
+		update
+		wdy_question_option
+		set
+		option_key =
+		#{optionKey,jdbcType=VARCHAR},
+		option_val =
+		#{optionVal,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+</mapper>

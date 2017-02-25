@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.flaginfo.wdy.api.user.dao.WdyQuestionAnswerMapper">
+	<resultMap id="BaseResultMap"
+		type="com.flaginfo.wdy.api.user.domain.WdyQuestionAnswer">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="qs_id" property="qsId" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="cost" property="cost" jdbcType="INTEGER" />
+		<result column="source" property="source" jdbcType="INTEGER" />
+		<result column="from_ip" property="fromIp" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="del_flag" property="delFlag" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, qs_id, user_id, cost, source, from_ip, status
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from wdy_question_answer
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectByQsIdAndUserId" resultType="java.lang.Integer"
+		parameterType="com.flaginfo.wdy.api.user.domain.WdyQuestionAnswer">
+		select
+		count(1)
+		from wdy_question_answer
+		where qs_id = #{qsId,jdbcType=VARCHAR}
+		and user_id = #{userId,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from wdy_question_answer
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		wdy_question_answer
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+
+	<insert id="insert" parameterType="com.flaginfo.wdy.api.user.domain.WdyQuestionAnswer">
+		insert into wdy_question_answer (
+		id,
+		qs_id,
+		user_id,
+		cost,
+		source,
+		from_ip,
+		status
+		) values (
+		#{id,jdbcType=VARCHAR},
+		#{qsId,jdbcType=VARCHAR},
+		#{userId,jdbcType=VARCHAR},
+		#{cost,jdbcType=INTEGER},
+		#{source,jdbcType=INTEGER},
+		#{fromIp,jdbcType=VARCHAR},
+		#{status,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.flaginfo.wdy.api.user.domain.WdyQuestionAnswer">
+		insert into wdy_question_answer
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="qsId != null">
+				qs_id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="cost != null">
+				cost,
+			</if>
+			<if test="source != null">
+				source,
+			</if>
+			<if test="fromIp != null">
+				from_ip,
+			</if>
+			<if test="status != null">
+				status
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="qsId != null">
+				#{qsId,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="cost != null">
+				#{cost,jdbcType=INTEGER},
+			</if>
+			<if test="source != null">
+				#{source,jdbcType=INTEGER},
+			</if>
+			<if test="fromIp != null">
+				#{fromIp,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- <select id="countByExample" parameterType="com.flaginfo.wdy.api.user.domain.UserCriteria" 
+		resultType="java.lang.Integer"> select count(*) from country </select> -->
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.flaginfo.wdy.api.user.domain.WdyQuestionAnswer">
+		update wdy_question_answer
+		<set>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.flaginfo.wdy.api.user.domain.WdyQuestionAnswer">
+		update
+		wdy_question_answer
+		set
+		status = #{status,jdbcType=INTEGER},
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+</mapper>

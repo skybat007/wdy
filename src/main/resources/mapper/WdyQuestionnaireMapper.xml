@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.flaginfo.wdy.api.user.dao.WdyQuestionnaireMapper">
+	<resultMap id="BaseResultMap"
+		type="com.flaginfo.wdy.api.user.domain.WdyQuestionnaire">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="sp_id" property="spId" jdbcType="VARCHAR" />
+		<result column="questionnaire_title" property="questionnaireTitle" jdbcType="VARCHAR" />
+		<result column="questionnaire_desc" property="questionnaireDesc" jdbcType="VARCHAR" />
+		<result column="result_prompt" property="resultPrompt" jdbcType="VARCHAR" />
+		<result column="questionnaire_status" property="questionnaireStatus" jdbcType="INTEGER" />
+		<result column="release_time" property="releaseTime" jdbcType="TIMESTAMP" />
+		<result column="deadline" property="deadline" jdbcType="TIMESTAMP" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="del_flag" property="delFlag" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, sp_id, questionnaire_title, questionnaire_desc, result_prompt, questionnaire_status, release_time, deadline
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from wdy_questionnaire
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from wdy_questionnaire
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		wdy_questionnaire
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+
+	<insert id="insert" parameterType="com.flaginfo.wdy.api.user.domain.WdyQuestionnaire">
+		insert into wdy_questionnaire (
+		id,
+		sp_id,
+		questionnaire_title,
+		questionnaire_desc,
+		result_prompt,
+		questionnaire_status,
+		release_time,
+		deadline
+		) values (
+		#{id,jdbcType=VARCHAR},
+		#{spId,jdbcType=VARCHAR},
+		#{questionnaireTitle,jdbcType=VARCHAR},
+		#{questionnaireDesc,jdbcType=VARCHAR},
+		#{resultPrompt,jdbcType=VARCHAR},
+		#{questionnaireStatus,jdbcType=VARCHAR},
+		#{releaseTime,jdbcType=TIMESTAMP},
+		#{deadline,jdbcType=TIMESTAMP}
+		)
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.flaginfo.wdy.api.user.domain.WdyQuestionnaire">
+		insert into wdy_questionnaire
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="spId != null">
+				sp_id,
+			</if>
+			<if test="questionnaireTitle != null">
+				questionnaire_title,
+			</if>
+			<if test="questionnaireDesc != null">
+				questionnaire_desc,
+			</if>
+			<if test="resultPrompt != null">
+				result_prompt,
+			</if>
+			<if test="questionnaireStatus != null">
+				questionnaire_status,
+			</if>
+			<if test="releaseTime != null">
+				release_time,
+			</if>
+			<if test="deadline != null">
+				deadline
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="spId != null">
+				#{spId,jdbcType=VARCHAR},
+			</if>
+			<if test="questionnaireTitle != null">
+				#{questionnaireTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="questionnaireDesc != null">
+				#{questionnaireDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="resultPrompt != null">
+				#{resultPrompt,jdbcType=VARCHAR},
+			</if>
+			<if test="questionnaireStatus != null">
+				#{questionnaireStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="releaseTime != null">
+				#{releaseTime,jdbcType=VARCHAR},
+			</if>
+			<if test="deadline != null">
+				#{deadline,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- <select id="countByExample" parameterType="com.flaginfo.wdy.api.user.domain.UserCriteria" 
+		resultType="java.lang.Integer"> select count(*) from country </select> -->
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.flaginfo.wdy.api.user.domain.WdyQuestionnaire">
+		update wdy_questionnaire
+		<set>
+			<if test="questionnaireTitle != null">
+				questionnaire_title = #{questionnaireTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="questionnaireDesc != null">
+				questionnaire_desc = #{questionnaireDesc,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.flaginfo.wdy.api.user.domain.WdyQuestionnaire">
+		update wdy_questionnaire
+		set
+		questionnaire_title = #{questionnaireTitle,jdbcType=VARCHAR},
+		questionnaire_desc = #{questionnaireDesc,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+</mapper>

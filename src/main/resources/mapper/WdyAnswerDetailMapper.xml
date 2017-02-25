@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.flaginfo.wdy.api.user.dao.WdyAnswerDetailMapper">
+	<resultMap id="BaseResultMap" type="com.flaginfo.wdy.api.user.domain.WdyAnswerDetail">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="answer_id" property="answerId" jdbcType="VARCHAR" />
+		<result column="question_id" property="questionId" jdbcType="VARCHAR" />
+		<result column="answer_option" property="answerOption" jdbcType="VARCHAR" />
+		<result column="answer_desc" property="answerDesc" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="del_flag" property="delFlag" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, answer_id, question_id, answer_option, answer_desc
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from wdy_answer_detail
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from wdy_answer_detail
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		wdy_answer_detail
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+
+	<insert id="insert" parameterType="com.flaginfo.wdy.api.user.domain.WdyAnswerDetail">
+		insert into wdy_answer_detail (
+		id,
+		answer_id,
+		question_id,
+		answer_option,
+		answer_desc
+		) values (
+		#{id,jdbcType=VARCHAR},
+		#{answerId,jdbcType=VARCHAR},
+		#{questionId,jdbcType=VARCHAR},
+		#{answerOption,jdbcType=VARCHAR},
+		#{answerDesc,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.flaginfo.wdy.api.user.domain.WdyAnswerDetail">
+		insert into wdy_answer_detail
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="answerId != null">
+				answer_id,
+			</if>
+			<if test="questionId != null">
+				question_id,
+			</if>
+			<if test="answerOption != null">
+				answer_option,
+			</if>
+			<if test="answerDesc != null">
+				answer_desc
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="answerId != null">
+				#{answerId,jdbcType=VARCHAR},
+			</if>
+			<if test="questionId != null">
+				#{questionId,jdbcType=VARCHAR},
+			</if>
+			<if test="answerOption != null">
+				#{answerOption,jdbcType=VARCHAR},
+			</if>
+			<if test="answerDesc != null">
+				#{answerDesc,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.flaginfo.wdy.api.user.domain.WdyAnswerDetail">
+		update wdy_answer_detail
+		<set>
+			<if test="answerOption != null">
+				answer_option =
+				#{answerOption,jdbcType=VARCHAR},
+			</if>
+			<if test="answerDesc != null">
+				answer_desc =
+				#{answerDesc,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.flaginfo.wdy.api.user.domain.WdyAnswerDetail">
+		update
+		wdy_answer_detail
+		set
+		answer_option = #{answerOption,jdbcType=VARCHAR},
+		answer_desc = #{answerDesc,jdbcType=VARCHAR}
+		where id =
+		#{id,jdbcType=VARCHAR}
+	</update>
+</mapper>

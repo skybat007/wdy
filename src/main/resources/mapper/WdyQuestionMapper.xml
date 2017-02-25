@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.flaginfo.wdy.api.user.dao.WdyQuestionMapper">
+	<resultMap id="BaseResultMap" type="com.flaginfo.wdy.api.user.domain.WdyQuestion">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="qs_id" property="qsId" jdbcType="VARCHAR" />
+		<result column="question" property="question" jdbcType="VARCHAR" />
+		<result column="sort" property="sort" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="is_need" property="isNeed" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="del_flag" property="delFlag" jdbcType="INTEGER" />
+	</resultMap>
+<!-- 
+	<resultMap id="questionOptionMap" type="com.flaginfo.wdy.vo.QuestionOptionVo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="qs_id" property="qsId" jdbcType="INTEGER" />
+		<result column="question" property="question" jdbcType="VARCHAR" />
+		<result column="sort" property="sort" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="is_need" property="isNeed" jdbcType="INTEGER" />
+		<result column="option_key" property="optionKey" jdbcType="VARCHAR" />
+		<result column="option_val" property="optionVal" jdbcType="VARCHAR" />
+		<result column="option_sort" property="optionSort" jdbcType="INTEGER" />
+	</resultMap>
+
+
+	<sql id="baseProp">
+		t1.id,t1.qs_id,t1.question,t1.sort,t1.type,t1.is_need,t2.option_key,t2.option_val,t2.option_sort
+	</sql>
+
+	<select id="getQuestionOptionsById" parameterType="java.lang.Long"
+		resultType="questionOptionMap">
+		SELECT
+		<include refid="baseProp" />
+		FROM
+		wdy_question t1
+		LEFT JOIN
+		wdy_question_option t2
+		ON t1.id =
+		t2.question_id
+		WHERE
+		del_flag=0
+		and id= #{ id }
+	</select> -->
+
+</mapper>
